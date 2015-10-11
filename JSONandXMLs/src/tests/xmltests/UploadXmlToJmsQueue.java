@@ -18,33 +18,31 @@ import resources.xmltests.*;
  * @author dschaich
  * @Objective The purpose of this test is to upload an XML file
  * 				into a Java Messaging Service queue.  All user names,
- * 				passwords, queue names, and URL's have been changed
+ * 				passwords, queue names, and URL's have been changed.
  */
 
 public class UploadXmlToJmsQueue extends XmlResourceMethods {
-	private String user = "user"; //ActiveMQ username
-	private String password = "pass";  //ActiveMQ Password
-	private String url = "tcp://testserver01.domain.net:31013"; //Broker for ActiveMQ
-	private Destination destination; //Holds the name of the queue
-	private StringBuilder testMessage = new StringBuilder(); //Builds and Holds the XML
-	private String queueName = "dsch.aich.fulfillmentOrderTest"; //Where we will send the XML message
 
+	private Destination destination; //Holds the name of the queue
+	
 	@Test
 	public void sendStandardMessage_Test() {
 		//Print out Date and Time to Console when run
 		SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy hh:mm:ss");
 		String date = sdf.format(new Date()); 
 		System.out.println(date);
+
 		
 		try {
-			String msg = getStandardMsg(testMessage);
+			String msg = getStandardMsg(getTestMessage());
 			//System.out.println(msg);
 			javax.jms.Connection connection = null;
-			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(this.user, this.password, this.url);
+			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+					this.getUser(), this.getPassword(), this.getUrl());
 			connection = connectionFactory.createConnection();
 			connection.start();
 			Session session = connection.createSession(false, 1);
-			this.destination = session.createQueue(queueName);
+			this.destination = session.createQueue(getQueueNameFulfillmentOrder());
 			MessageProducer producer = session.createProducer(this.destination);
 			producer.setDeliveryMode(2);
 
