@@ -95,9 +95,9 @@ public class SOACreateOrder {
 
 	public String getPurchaseOrderData(String po1) {
 		Client client = Client.create();
-		WebResource webResource = client.resource("http://pehz-qa1-soa02.zappos.net:8080/po-services/services/PurchaseOrderSearchSOAP12Service");
+		WebResource webResource = client.resource("http://test-qa1-soa02.domain.net:8080/po-services/services/PurchaseOrderSearchSOAP12Service");
 		String getPurchaseOrderXml = 
-				"<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:v1=\"http://www.zappos.com/pehz/schema/messages/purchase_order_messages/v1_0\">"
+				"<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:v1=\"http://www.domain.com/test/schema/messages/purchase_order_messages/v1_0\">"
 						+ "\n   <soap:Header/>"
 						+ "\n   <soap:Body>"
 						+ "\n       <v1:getPurchaseOrderRequest>"
